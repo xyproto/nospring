@@ -31,7 +31,7 @@ type SlackMessage struct {
 	Text string `json:"text"`
 }
 
-func isSpring(data *OpenWeatherMapResponse) bool {
+func spring(data *OpenWeatherMapResponse) bool {
 	currentTime := time.Now().Unix()
 	daylightHours := data.Sys.Sunset - data.Sys.Sunrise
 	isClear := data.Weather[0].Main == "Clear"
@@ -72,12 +72,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if isSpring(&data) {
+	if spring(&data) {
 		webhookURL := os.Getenv("SLACK_WEBHOOK_URL")
 		if webhookURL == "" {
 			log.Fatal(errors.New("SLACK_WEBHOOK_URL environment variable not set"))
 		}
-
 		message := SlackMessage{Text: "It's springtime in " + city + "!"}
 		err = sendSlackNotification(message, webhookURL)
 		if err != nil {
