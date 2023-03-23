@@ -1,2 +1,3 @@
-# nospring
-Notify users on Slack when the Norwegian spring starts
+# spring
+
+Notify users on Slack when the spring in Oslo starts.
